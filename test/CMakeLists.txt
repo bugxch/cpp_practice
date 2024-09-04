@@ -4,7 +4,7 @@ project(TEST)
 include_directories(
 	${HEAD_PATH}  # 动态库头文件目录
 	${CMAKE_CURRENT_SOURCE_DIR}/third_party/googletest/googletest/include # 静态库头文件目录
-	)
+)
 # 设置可执行文件输出路径
 set(EXECUTABLE_OUTPUT_PATH ${EXEC_PATH})
 # 生成可执行文件
