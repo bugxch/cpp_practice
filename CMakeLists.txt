@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.22)
-project(hada)
+project(hada CXX)
 
 # 设置变量
 set(EXEC_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
