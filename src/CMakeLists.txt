@@ -4,4 +4,4 @@ project(SRC_LIB)
 aux_source_directory(./ SRC)
 include_directories(${HEAD_PATH})
 # 添加动态库或者共享库
-add_library(${SRC_LIB} SHARED ${SRC})
+add_library(${SRC_LIB} OBJECT ${SRC})
