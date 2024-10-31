@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include "item1.h"
+#include "ch2.h"
 
 TEST(Item1, Test1)
 {
@@ -10,7 +11,7 @@ TEST(Item1, Test1)
 
 TEST(Item1, Test2)
 {
-	EXPECT_EQ(3, 1 + 2);
+	EXPECT_EQ(3, sub_fun(5, 2));
 }
 
 TEST(Item1, Test3)
