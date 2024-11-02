@@ -4,5 +4,5 @@ constexpr float pi = 3.1415f;
 
 float Item1::GetArea() const
 {
-	return pi * price_ * price_;
+    return pi * price_ * price_;
 }
