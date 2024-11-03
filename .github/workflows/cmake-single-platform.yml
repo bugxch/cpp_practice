@@ -23,6 +23,13 @@ jobs:
     - uses: actions/checkout@v4
     - name: Update submodule
       run: git submodule update --remote
+      
+    - name: Checkout googletest here
+      uses: actions/checkout@main
+      with:
+        persist-credentials: false
+        submodules: true
+        fetch-depth: 0
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
