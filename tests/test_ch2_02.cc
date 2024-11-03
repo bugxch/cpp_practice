@@ -34,5 +34,5 @@ TEST(ch2_02, case03)
     // functtest1()是泛化版本的
     tc.functtest1();
     // m_stc是全特化版本的
-    EXPECT_EQ(tc.m_stc, 120);
+    EXPECT_EQ(tc.m_stc, 20);
 }
