@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+      branches: [ "main" ]
+    pull_request:
+      branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Google Test
+        run: sudo apt-get install libgtest-dev
+      - name: Build
+        run: cmake -S . -B build && cmake --build build
+      - name: Run Tests
+        run: ctest --output-on-failure
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v2
+        if: success() || failure()
+        with:
+          name: test-results
+          path: build/test-results.xml
+      - name: Publish Test Report
+        uses: dorny/test-reporter@v1
+        with:
+          artifact: test-results
+          name: GTEST Tests
+          path: 'build/test-results.xml'
+          reporter: java-junit
