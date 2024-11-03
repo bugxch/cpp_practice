@@ -4,6 +4,7 @@
 #include <iostream>
 using namespace std;
 
+// 函数模板示意
 template <typename T>
 T sub_fun(T a, T b)
 {
