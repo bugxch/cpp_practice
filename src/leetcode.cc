@@ -53,4 +53,41 @@ int Solution::trap2(vector<int> &height)
     }
     return res;
 }
+
+vector<int> Solution::twoSum(vector<int> &nums, int target)
+{
+    unordered_map<int, int> umap;
+    for (auto i = 0; i < nums.size(); i++)
+    {
+        if (umap.count(target - nums[i]) > 0)
+        {
+            return std::vector<int>{i, umap[target - nums[i]]};
+        }
+        umap.insert({nums[i], i});
+    }
+    return {};
+}
+
+int Solution::lengthOfLongestSubstring(string s)
+{
+    int ans = 0;
+    int left = 0;
+    int right = 0;
+    unordered_map<char, int> table;
+    while (right < s.size())
+    {
+        auto rch = s[right];
+        right++;
+
+        while (table.count(rch) > 0 && table[rch] > 0)
+        {
+            auto lch = s[left];
+            left++;
+            table[lch]--;
+        }
+        table[rch]++;
+        ans = std::max(ans, right - left);
+    }
+    return ans;
+}
 } // namespace leetcode

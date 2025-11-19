@@ -1,16 +1,25 @@
 {
-    // 使用 IntelliSense 了解相关属性。
-    // 悬停以查看现有属性的描述。
-    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "lldb",
+            "name": "GDB: Launch",
+            "type": "cppdbg",
             "request": "launch",
-            "name": "Launch",
-            "program": "${workspaceFolder}/bin/my_test",
-            "args": [],
-            "cwd": "${workspaceFolder}"
+            "program": "${workspaceFolder}/build/my_test", // 你的可执行文件路径
+            "args": [], // 程序运行参数
+            "stopAtEntry": false, // 是否在入口处停止
+            "cwd": "${workspaceFolder}", // 工作目录
+            "environment": [],
+            "externalConsole": false, // 是否使用外部控制台
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "CMake: build", // 调试前执行的任务（即编译）
         }
     ]
 }

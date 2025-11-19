@@ -1,14 +1,23 @@
 {
-	"version": "2.0.0",
 	"tasks": [
 		{
-			"label": "RunTest",
-			"type": "shell",
-			"command": "./build.sh",
-			"group": "build",
+			"type": "cmake",
+			"label": "CMake: build",
+			"command": "build",
+			"targets": [
+				"all"
+			],
 			"options": {
-				"cwd": "${workspaceFolder}"
+				"cwd": "${workspaceFolder}/build"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
 			}
 		}
-	]
+	],
+	"version": "2.0.0"
 }
