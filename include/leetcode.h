@@ -18,6 +18,7 @@ public:
     int trap2(vector<int> &height);
     vector<int> twoSum(vector<int> &nums, int target);
     int lengthOfLongestSubstring(string s);
+    int findKthLargest(vector<int> &nums, int k);
 };
 
 } // namespace leetcode

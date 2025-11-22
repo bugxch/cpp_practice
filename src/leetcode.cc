@@ -1,4 +1,5 @@
 #include "leetcode.h"
+#include <algorithm>
 
 namespace leetcode
 {
@@ -89,5 +90,11 @@ int Solution::lengthOfLongestSubstring(string s)
         ans = std::max(ans, right - left);
     }
     return ans;
+}
+
+int Solution::findKthLargest(vector<int> &nums, int k)
+{
+    sort(nums.begin(), nums.end(), [](int a, int b) { return a < b; });
+    return nums[k - 1];
 }
 } // namespace leetcode
