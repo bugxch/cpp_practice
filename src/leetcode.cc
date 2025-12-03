@@ -97,4 +97,27 @@ int Solution::findKthLargest(vector<int> &nums, int k)
     sort(nums.begin(), nums.end(), [](int a, int b) { return a < b; });
     return nums[k - 1];
 }
+
+bool Solution::hasCycle(ListNode *head)
+{
+    if (head == nullptr || head->next == nullptr)
+    {
+        return false;
+    }
+    ListNode *slow = head;
+    ListNode *fast = head->next;
+
+    while (slow != fast)
+    {
+        fast = fast->next->next;
+        slow = slow->next;
+        if (slow == fast)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+
 } // namespace leetcode

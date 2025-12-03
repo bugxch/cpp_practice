@@ -8,6 +8,15 @@
 #include <unordered_set>
 #include <vector>
 using namespace std;
+struct ListNode
+{
+    int val;
+    ListNode *next;
+    ListNode(int x) : val(x), next(NULL)
+    {
+    }
+};
+
 namespace leetcode
 {
 class Solution
@@ -19,6 +28,7 @@ public:
     vector<int> twoSum(vector<int> &nums, int target);
     int lengthOfLongestSubstring(string s);
     int findKthLargest(vector<int> &nums, int k);
+    bool hasCycle(ListNode *head); // 环形链表
 };
 
 } // namespace leetcode
