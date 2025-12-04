@@ -29,6 +29,8 @@ public:
     int lengthOfLongestSubstring(string s);
     int findKthLargest(vector<int> &nums, int k);
     bool hasCycle(ListNode *head); // 环形链表
+    ListNode *mergeTwoLists(ListNode *list1,
+                            ListNode *list2); // 合并两个有序链表
 };
 
 } // namespace leetcode
