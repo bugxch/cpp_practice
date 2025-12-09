@@ -2,6 +2,9 @@
 #ifndef LEETCODE_H
 #define LEETCODE_H
 
+#include <iostream>
+#include <queue>
+#include <stack>
 #include <string>
 #include <tuple>
 #include <unordered_map>
@@ -31,6 +34,10 @@ public:
     bool hasCycle(ListNode *head); // 环形链表
     ListNode *mergeTwoLists(ListNode *list1,
                             ListNode *list2); // 合并两个有序链表
+    bool canVisitAllRooms(vector<vector<int>> &rooms); // 是否可以访问所有的房间
+    vector<int> findAnagrams(string s, string p); // 所有的字母异位词
+    ListNode *removeNthFromEnd(ListNode *head, int n); // 删除链表倒数第n个节点
+    vector<vector<int>> permute(vector<int> &nums); // 全排列
 };
 
 } // namespace leetcode

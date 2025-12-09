@@ -94,8 +94,18 @@ int Solution::lengthOfLongestSubstring(string s)
 
 int Solution::findKthLargest(vector<int> &nums, int k)
 {
-    sort(nums.begin(), nums.end(), [](int a, int b) { return a < b; });
-    return nums[k - 1];
+    priority_queue<int, vector<int>, less<int>> myQ;
+    for (auto num : nums)
+    {
+        myQ.push(num);
+    }
+    int cnt = 0;
+    while (cnt < k - 1)
+    {
+        myQ.pop();
+        cnt++;
+    }
+    return myQ.top();
 }
 
 bool Solution::hasCycle(ListNode *head)
@@ -139,6 +149,134 @@ ListNode *Solution::mergeTwoLists(ListNode *list1, ListNode *list2)
         list2->next = mergeTwoLists(list2->next, list1);
         return list2;
     }
+}
+
+bool Solution::canVisitAllRooms(vector<vector<int>> &rooms)
+{
+    int n = rooms.size();
+    int num = 0;
+    vector<bool> visited(n, false);
+    std::queue<int> myQ;
+    myQ.push(0);
+    visited[0] = true;
+    while (!myQ.empty())
+    {
+        int qSize = myQ.size();
+        for (int i = 0; i < qSize; ++i)
+        {
+            int curIdx = myQ.front();
+            myQ.pop();
+            num += 1;
+            for (auto room : rooms[curIdx])
+            {
+                if (!visited[room])
+                {
+                    myQ.push(room);
+                    visited[room] = true;
+                }
+            }
+        }
+    }
+    return num == n;
+}
+vector<int> Solution::findAnagrams(string s, string p)
+{
+    vector<int> rlt;
+    int left = 0;
+    int right = 0;
+    unordered_map<char, int> need;
+    unordered_map<char, int> window;
+
+    for (auto ch : p)
+    {
+        need[ch]++;
+    }
+
+    while (right < s.size())
+    {
+        auto rch = s[right];
+        right++;
+        window[rch]++;
+
+        while (right - left > p.size())
+        {
+            auto lch = s[left];
+            window[lch]--;
+            if (window[lch] == 0)
+            {
+                window.erase(lch);
+            }
+            left++;
+        }
+
+        if (need == window)
+        {
+            rlt.emplace_back(left);
+        }
+    }
+
+    return rlt;
+}
+
+ListNode *Solution::removeNthFromEnd(ListNode *head, int n)
+{
+    stack<ListNode *> st;
+    ListNode dummyNode = ListNode(0);
+    dummyNode.next = head;
+
+    ListNode *cur = &dummyNode;
+    while (cur != nullptr)
+    {
+        st.push(cur);
+        cur = cur->next;
+    }
+
+    int cnt = 0;
+    ListNode *prevNode = nullptr;
+    while (cnt < n)
+    {
+        prevNode = st.top();
+        st.pop();
+        cnt++;
+    }
+    st.top()->next = prevNode->next;
+    return dummyNode.next;
+}
+
+void dfs(vector<int> &curPath,
+         const vector<int> &nums,
+         vector<bool> &visited,
+         vector<vector<int>> &rlt)
+{
+    // reach the leaf node
+    if (curPath.size() == nums.size())
+    {
+        rlt.emplace_back(curPath);
+        return;
+    }
+
+    for (int i = 0; i < nums.size(); ++i)
+    {
+        if (visited[i])
+        {
+            continue;
+        }
+        visited[i] = true;
+        curPath.emplace_back(nums[i]);
+        dfs(curPath, nums, visited, rlt);
+        visited[i] = false;
+        curPath.pop_back();
+    }
+}
+
+
+vector<vector<int>> Solution::permute(vector<int> &nums)
+{
+    vector<vector<int>> rlt;
+    vector<bool> visited(nums.size(), false);
+    vector<int> curPath;
+    dfs(curPath, nums, visited, rlt);
+    return rlt;
 }
 
 } // namespace leetcode
