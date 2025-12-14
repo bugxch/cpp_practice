@@ -38,6 +38,9 @@ public:
     vector<int> findAnagrams(string s, string p); // 所有的字母异位词
     ListNode *removeNthFromEnd(ListNode *head, int n); // 删除链表倒数第n个节点
     vector<vector<int>> permute(vector<int> &nums); // 全排列
+    string removeDuplicateLetters(string s);        // 去除重复字母
+    vector<vector<int>> subsets(vector<int> &nums); // 求所有子集
+    vector<vector<int>> combine(int n, int k);      // 组合
 };
 
 } // namespace leetcode

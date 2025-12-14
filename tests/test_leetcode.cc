@@ -31,6 +31,8 @@ TEST(leetcode, test2)
     EXPECT_EQ(sol.findKthLargest(sample, 2), 5);
     vector<int> list{1, 2, 3};
     auto rlt = sol.permute(list);
-    return;
+    EXPECT_EQ(sol.removeDuplicateLetters("bbcaac"), "bac");
+    auto rlt2 = sol.combine(4, 2);
+    std::cout << "hello world" << std::endl;
 }
 } // namespace leetcode

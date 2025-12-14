@@ -279,4 +279,93 @@ vector<vector<int>> Solution::permute(vector<int> &nums)
     return rlt;
 }
 
+string Solution::removeDuplicateLetters(string s)
+{
+    bool isInQueue[26] = {false};
+    int alphaCnt[26] = {0};
+
+    for (auto ch : s)
+    {
+        alphaCnt[ch - 'a']++;
+    }
+
+    vector<char> myQ;
+    for (auto ch : s)
+    {
+        if (isInQueue[ch - 'a'])
+        {
+            alphaCnt[ch - 'a']--;
+            continue;
+        }
+
+        while (!myQ.empty() && ch < myQ.back() &&
+               alphaCnt[myQ.back() - 'a'] > 0)
+        {
+            isInQueue[myQ.back() - 'a'] = false;
+            myQ.pop_back();
+        }
+
+        myQ.emplace_back(ch);
+        isInQueue[ch - 'a'] = true;
+        alphaCnt[ch - 'a']--;
+    }
+    string rlt;
+    // get the result
+    for (auto ch : myQ)
+    {
+        rlt += ch;
+    }
+    return rlt;
+}
+
+void dfs(vector<int> &curPath,
+         int startIdx /*explore start idx*/,
+         const vector<int> &nums,
+         vector<vector<int>> &res)
+{
+    res.emplace_back(curPath);
+    for (int start = startIdx; start < nums.size(); start++)
+    {
+        curPath.emplace_back(nums[start]);
+        dfs(curPath, start + 1, nums, res);
+        curPath.pop_back();
+    }
+}
+
+vector<vector<int>> Solution::subsets(vector<int> &nums)
+{
+    vector<vector<int>> res;
+    vector<int> curPath;
+    dfs(curPath, 0, nums, res);
+    return res;
+}
+
+void helper(vector<int> &curPath,
+            int startIdx /*explore start idx*/,
+            const int n,
+            const int k,
+            vector<vector<int>> &res)
+{
+    if (curPath.size() == k)
+    {
+        res.emplace_back(curPath);
+        return;
+    }
+
+    for (int start = startIdx; start <= n; start++)
+    {
+        curPath.emplace_back(start);
+        helper(curPath, start + 1, n, k, res);
+        curPath.pop_back();
+    }
+}
+
+vector<vector<int>> Solution::combine(int n, int k)
+{
+    vector<vector<int>> res;
+    vector<int> curPath;
+    helper(curPath, 1, n, k, res);
+    return res;
+}
+
 } // namespace leetcode
