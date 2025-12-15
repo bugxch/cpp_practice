@@ -368,4 +368,45 @@ vector<vector<int>> Solution::combine(int n, int k)
     return res;
 }
 
+void helper2(vector<string> &rlt,
+             string &curPath,
+             const int n,
+             int left,
+             int right)
+{
+    if (right < 0 || left < 0)
+    {
+        return;
+    }
+
+    if (left > right)
+    {
+        return;
+    }
+
+
+    if (right == 0 && left == 0)
+    {
+        rlt.push_back(curPath);
+        return;
+    }
+    // handle left branch
+    curPath += "(";
+    helper2(rlt, curPath, n, left - 1, right);
+    curPath.pop_back();
+
+    // handle right branch
+    curPath += ")";
+    helper2(rlt, curPath, n, left, right - 1);
+    curPath.pop_back();
+}
+
+vector<string> Solution::generateParenthesis(int n)
+{
+    vector<string> rlt;
+    string curPath;
+    helper2(rlt, curPath, n, n, n);
+    return rlt;
+}
+
 } // namespace leetcode

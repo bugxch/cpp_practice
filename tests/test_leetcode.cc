@@ -33,6 +33,7 @@ TEST(leetcode, test2)
     auto rlt = sol.permute(list);
     EXPECT_EQ(sol.removeDuplicateLetters("bbcaac"), "bac");
     auto rlt2 = sol.combine(4, 2);
+    auto rlt3 = sol.generateParenthesis(3);
     std::cout << "hello world" << std::endl;
 }
 } // namespace leetcode
