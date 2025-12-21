@@ -20,6 +20,23 @@ struct ListNode
     }
 };
 
+struct TreeNode
+{
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode() : val(0), left(nullptr), right(nullptr)
+    {
+    }
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr)
+    {
+    }
+    TreeNode(int x, TreeNode *left, TreeNode *right)
+        : val(x), left(left), right(right)
+    {
+    }
+};
+
 namespace leetcode
 {
 class Solution
@@ -42,9 +59,13 @@ public:
     vector<vector<int>> subsets(vector<int> &nums); // 求所有子集
     vector<vector<int>> combine(int n, int k);      // 组合
     vector<string> generateParenthesis(int n);      // 括号生成
+    void merge(vector<int> &nums1,
+               int m,
+               vector<int> &nums2,
+               int n);                             // 合并有序链表
+    vector<int> rightSideView(TreeNode *root);     // 二叉树的右视图
+    int removeElement(vector<int> &nums, int val); // 移除元素
 };
-
 } // namespace leetcode
 
 #endif // LEETCODE_H
-       /*******  0c16a835-1f49-4387-b3f9-c37209e7418f  *******/

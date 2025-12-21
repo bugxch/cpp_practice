@@ -409,4 +409,92 @@ vector<string> Solution::generateParenthesis(int n)
     return rlt;
 }
 
+void Solution::merge(vector<int> &nums1, int m, vector<int> &nums2, int n)
+{
+    vector<int> rlt;
+    int left = 0;
+    int right = 0;
+    while (left < m && right < n)
+    {
+        if (nums1[left] < nums2[right])
+        {
+            rlt.emplace_back(nums1[left]);
+            left++;
+        }
+        else
+        {
+            rlt.emplace_back(nums2[right]);
+            right++;
+        }
+    }
+
+    if (left == m)
+    {
+        while (rlt.size() < m + n)
+        {
+            rlt.emplace_back(nums2[right++]);
+        }
+    }
+
+    if (right == n)
+    {
+        while (rlt.size() < m + n)
+        {
+            rlt.emplace_back(nums1[left++]);
+        }
+    }
+
+    nums1 = rlt;
+}
+
+vector<int> Solution::rightSideView(TreeNode *root)
+{
+    vector<int> rlt;
+    if (root == nullptr)
+    {
+        return rlt;
+    }
+    queue<TreeNode *> myQ;
+
+
+    myQ.push(root);
+    while (!myQ.empty())
+    {
+        int qz = myQ.size();
+        rlt.emplace_back(myQ.back()->val);
+        for (int i = 0; i < qz; i++)
+        {
+            auto curNode = myQ.front();
+            myQ.pop();
+            // left branch
+            if (curNode->left)
+            {
+                myQ.push(curNode->left);
+            }
+            // right
+            if (curNode->right)
+            {
+                myQ.push(curNode->right);
+            }
+        }
+    }
+    return rlt;
+}
+
+int Solution::removeElement(vector<int> &nums, int val)
+{
+    int slow = 0;
+    int fast = 0;
+    while (fast < nums.size())
+    {
+        if (nums[fast] != val)
+        {
+            nums[slow] = nums[fast];
+            slow++;
+        }
+        fast++;
+    }
+    return slow;
+}
+
 } // namespace leetcode
