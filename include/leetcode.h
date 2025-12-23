@@ -46,7 +46,7 @@ public:
     int trap(vector<int> &height);
     int trap2(vector<int> &height);
     vector<int> twoSum(vector<int> &nums, int target);
-    int lengthOfLongestSubstring(string s);
+    int lengthOfLongestSubstring(string s); // 无重复字符的最长子串
     int findKthLargest(vector<int> &nums, int k);
     bool hasCycle(ListNode *head); // 环形链表
     ListNode *mergeTwoLists(ListNode *list1,
@@ -62,9 +62,13 @@ public:
     void merge(vector<int> &nums1,
                int m,
                vector<int> &nums2,
-               int n);                             // 合并有序链表
-    vector<int> rightSideView(TreeNode *root);     // 二叉树的右视图
-    int removeElement(vector<int> &nums, int val); // 移除元素
+               int n);                              // 合并有序链表
+    vector<int> rightSideView(TreeNode *root);      // 二叉树的右视图
+    int removeElement(vector<int> &nums, int val);  // 移除元素
+    vector<vector<int>> levelOrder(TreeNode *root); // 二叉树的层序遍历
+    vector<int> preorderTraversal(TreeNode *root);  // 二叉树的前序遍历
+    int removeDuplicates(vector<int> &nums); // 删除有序数组中的重复项
+    int longestConsecutive(vector<int> &nums); // 最长连续子序列
 };
 } // namespace leetcode
 

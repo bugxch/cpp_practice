@@ -71,25 +71,30 @@ vector<int> Solution::twoSum(vector<int> &nums, int target)
 
 int Solution::lengthOfLongestSubstring(string s)
 {
-    int ans = 0;
+    int rlt = 0;
     int left = 0;
     int right = 0;
-    unordered_map<char, int> table;
+    unordered_map<char, int> umap;
+
     while (right < s.size())
     {
         auto rch = s[right];
+        umap[rch]++;
         right++;
 
-        while (table.count(rch) > 0 && table[rch] > 0)
+        while (umap[rch] > 1)
         {
             auto lch = s[left];
             left++;
-            table[lch]--;
+            umap[lch]--;
+            if (umap[lch] == 0)
+            {
+                umap.erase(lch);
+            }
         }
-        table[rch]++;
-        ans = std::max(ans, right - left);
+        rlt = std::max(rlt, right - left);
     }
-    return ans;
+    return rlt;
 }
 
 int Solution::findKthLargest(vector<int> &nums, int k)
@@ -497,4 +502,108 @@ int Solution::removeElement(vector<int> &nums, int val)
     return slow;
 }
 
+
+vector<vector<int>> Solution::levelOrder(TreeNode *root)
+{
+    vector<vector<int>> rlt;
+    if (root == nullptr)
+    {
+        return rlt;
+    }
+    queue<TreeNode *> myQ;
+    myQ.push(root);
+    while (!myQ.empty())
+    {
+        int qz = myQ.size();
+        vector<int> layerList;
+        for (int i = 0; i < qz; i++)
+        {
+            auto curNode = myQ.front();
+            layerList.push_back(curNode->val);
+            myQ.pop();
+
+            if (curNode->left)
+            {
+                myQ.push(curNode->left);
+            }
+            if (curNode->right)
+            {
+                myQ.push(curNode->right);
+            }
+        }
+        rlt.push_back(layerList);
+    }
+
+    return rlt;
+}
+
+
+void dfs(vector<int> &rlt, TreeNode *root)
+{
+    if (root == nullptr)
+    {
+        return;
+    }
+
+    rlt.push_back(root->val);
+    if (root->left)
+    {
+        dfs(rlt, root->left);
+    }
+    if (root->right)
+    {
+        dfs(rlt, root->right);
+    }
+}
+
+
+vector<int> Solution::preorderTraversal(TreeNode *root)
+{
+    vector<int> rlt;
+    dfs(rlt, root);
+    return rlt;
+}
+
+int Solution::removeDuplicates(vector<int> &nums)
+{
+    int slow = 0;
+    int fast = 0;
+    while (fast < nums.size())
+    {
+        if (nums[fast] != nums[slow])
+        {
+            slow++;
+            nums[slow] = nums[fast];
+        }
+        fast++;
+    }
+    return slow + 1;
+}
+
+int Solution::longestConsecutive(vector<int> &nums)
+{
+    unordered_set<int> numSet;
+    for (auto num : nums)
+    {
+        numSet.insert(num);
+    }
+
+    int maxLen = 0;
+    for (auto num : numSet)
+    {
+        int curLen = 1;
+        if (!numSet.count(num - 1))
+        {
+            int startNum = num;
+            while (numSet.count(startNum + 1))
+            {
+                curLen++;
+                startNum++;
+            }
+        }
+        maxLen = std::max(maxLen, curLen);
+    }
+
+    return maxLen;
+}
 } // namespace leetcode
