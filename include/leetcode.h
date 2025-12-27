@@ -69,6 +69,7 @@ public:
     vector<int> preorderTraversal(TreeNode *root);  // 二叉树的前序遍历
     int removeDuplicates(vector<int> &nums); // 删除有序数组中的重复项
     int longestConsecutive(vector<int> &nums); // 最长连续子序列
+    int lengthOfLIS(vector<int> &nums);        // 最长递增子序列
 };
 } // namespace leetcode
 
