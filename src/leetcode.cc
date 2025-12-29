@@ -607,19 +607,116 @@ int Solution::longestConsecutive(vector<int> &nums)
     return maxLen;
 }
 
-int lengthOfLIS(vector<int> &nums)
+void LIShelper(vector<int> &curPath,
+               const vector<int> nums,
+               vector<bool> &visited,
+               int &maxLen,
+               int startIdx)
 {
-    vector<int> dp(nums.size(), 1);
-    for (int i = 0; i < nums.size(); ++i)
+    maxLen = maxLen > curPath.size() ? maxLen : curPath.size();
+
+    for (int i = startIdx; i < nums.size(); i++)
     {
-        for (int j = 0; j < i; j++)
+        if (visited[i])
         {
-            if (nums[j] < nums[i])
+            continue;
+        }
+        if ((!curPath.empty() && nums[i] > nums[curPath.back()]) ||
+            curPath.empty())
+        {
+            visited[i] = true;
+            curPath.push_back(i);
+            LIShelper(curPath, nums, visited, maxLen, i);
+            curPath.pop_back();
+            visited[i] = false;
+        }
+    }
+}
+
+int Solution::lengthOfLIS(vector<int> &nums)
+{
+    vector<bool> visted(nums.size(), false);
+    vector<int> curPath;
+    int maxLen = 1;
+    LIShelper(curPath, nums, visted, maxLen, 0);
+    return maxLen;
+}
+
+int Solution::coinChange(vector<int> &coins, int amount)
+{
+    vector<int> dp(amount + 1, amount + 1);
+    dp[0] = 0;
+    for (int i = 1; i < amount + 1; i++)
+    {
+        for (auto coin : coins)
+        {
+            if (coin <= i)
             {
-                dp[i] = std::max(dp[i], dp[j] + 1);
+                dp[i] = std::min(dp[i], dp[i - coin] + 1);
             }
         }
     }
-    return *max_element(dp.begin(), dp.end());
+    return dp[amount] > amount ? -1 : dp[amount];
+}
+
+int Solution::minFallingPathSum(vector<vector<int>> &matrix)
+{
+    int len = matrix.size();
+    vector<vector<int>> dp(len, vector<int>(len, 66666));
+    // init base case
+    for (int j = 0; j < len; j++)
+    {
+        dp[0][j] = matrix[0][j];
+    }
+
+    for (int row = 1; row < len; row++)
+    {
+        for (int col = 0; col < len; col++)
+        {
+            int minVal = 66666;
+            for (int j = -1; j < 2; j++)
+            {
+                if (col + j < 0 || col + j > len - 1)
+                {
+                    continue;
+                }
+                minVal = std::min(minVal, dp[row - 1][col + j]);
+            }
+            dp[row][col] = matrix[row][col] + minVal;
+        }
+    }
+    return *min_element(dp[len - 1].begin(), dp[len - 1].end());
+}
+
+void numDistinctHelper(string s,
+                       string t,
+                       string &curStr,
+                       int startIdx,
+                       int &totalCnt)
+{
+    if (curStr == t)
+    {
+        totalCnt++;
+        return;
+    }
+
+    for (int i = startIdx; i < s.size(); i++)
+    {
+        string tmpStr = curStr + s[i];
+        if (t.compare(0, tmpStr.length(), tmpStr) == 0)
+        {
+            curStr = tmpStr;
+            numDistinctHelper(s, t, curStr, i + 1, totalCnt);
+            curStr.pop_back();
+        }
+    }
+}
+
+int Solution::numDistinct(string s, string t)
+{
+    int res = 0;
+    string curStr;
+    numDistinctHelper(s, t, curStr, 0, res);
+    return res;
 }
 } // namespace leetcode

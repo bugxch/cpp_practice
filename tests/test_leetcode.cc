@@ -34,6 +34,10 @@ TEST(leetcode, test2)
     EXPECT_EQ(sol.removeDuplicateLetters("bbcaac"), "bac");
     auto rlt2 = sol.combine(4, 2);
     auto rlt3 = sol.generateParenthesis(3);
+
+    vector<int> nums{10, 9, 2, 5, 3, 7, 101, 18};
+    auto len = sol.lengthOfLIS(nums);
+    auto totalCnt = sol.numDistinct("rabbbit", "rabbit");
     std::cout << "hello world" << std::endl;
 }
 } // namespace leetcode
