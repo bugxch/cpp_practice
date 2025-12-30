@@ -2,6 +2,7 @@
 #ifndef LEETCODE_H
 #define LEETCODE_H
 
+#include <cmath>
 #include <iostream>
 #include <queue>
 #include <stack>
@@ -73,6 +74,7 @@ public:
     int coinChange(vector<int> &coins, int amount);     // 零钱兑换
     int minFallingPathSum(vector<vector<int>> &matrix); // 最小下降路径和
     int numDistinct(string s, string t);                // 不同的子序列
+    int numSquares(int n);                              // 完全平方数
 };
 } // namespace leetcode
 

@@ -38,6 +38,7 @@ TEST(leetcode, test2)
     vector<int> nums{10, 9, 2, 5, 3, 7, 101, 18};
     auto len = sol.lengthOfLIS(nums);
     auto totalCnt = sol.numDistinct("rabbbit", "rabbit");
+    auto minNum = sol.numSquares(12);
     std::cout << "hello world" << std::endl;
 }
 } // namespace leetcode
