@@ -39,6 +39,7 @@ TEST(leetcode, test2)
     auto len = sol.lengthOfLIS(nums);
     auto totalCnt = sol.numDistinct("rabbbit", "rabbit");
     auto minNum = sol.numSquares(12);
+    auto stringSplit = sol.partitionStr("aab");
     std::cout << "hello world" << std::endl;
 }
 } // namespace leetcode

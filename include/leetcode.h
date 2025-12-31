@@ -75,6 +75,8 @@ public:
     int minFallingPathSum(vector<vector<int>> &matrix); // 最小下降路径和
     int numDistinct(string s, string t);                // 不同的子序列
     int numSquares(int n);                              // 完全平方数
+    vector<int> spiralOrder(vector<vector<int>> &matrix); // 螺旋矩阵
+    vector<vector<string>> partitionStr(string s); // 求出字符串s的所有分割子串
 };
 } // namespace leetcode
 

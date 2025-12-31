@@ -720,6 +720,42 @@ int Solution::numDistinct(string s, string t)
     return res;
 }
 
+vector<int> Solution::spiralOrder(vector<vector<int>> &matrix)
+{
+    vector<int> rlt;
+    if (matrix.size() == 0 || matrix[0].size() == 0)
+    {
+        return rlt;
+    }
+    int row = matrix.size();
+    int col = matrix[0].size();
+    vector<vector<int>> visited(row, vector<int>(col, false));
+    constexpr int directions[4][2] = {{0, 1},   // turn righ
+                                      {1, 0},   // turn down
+                                      {0, -1},  // turn left
+                                      {-1, 0}}; // turn up
+    int rowIdx = 0;
+    int colIdx = 0;
+    int directIdx = 0;
+    while (rlt.size() < row * col)
+    {
+        visited[rowIdx][colIdx] = true;
+        rlt.emplace_back(matrix[rowIdx][colIdx]);
+        int nextRow = rowIdx + directions[directIdx][0];
+        int nextCol = colIdx + directions[directIdx][1];
+        // calculate the next directions
+        if (nextRow > row - 1 || nextRow < 0 || nextCol > col - 1 ||
+            nextCol < 0 || visited[nextRow][nextCol])
+        {
+            // change the direction
+            directIdx = (directIdx + 1) % 4;
+        }
+        rowIdx += directions[directIdx][0];
+        colIdx += directions[directIdx][1];
+    }
+    return rlt;
+}
+
 int Solution::numSquares(int n)
 {
     vector<int> dp(n + 1, 0);
@@ -747,5 +783,58 @@ int Solution::numSquares(int n)
         dp[i] = minVal + 1;
     }
     return dp[n];
+}
+void partitionStrHelper(vector<vector<string>> &rlt,
+                        const string s,
+                        vector<string> &curPath,
+                        int startIdx,
+                        const vector<vector<bool>> &isPalindrome)
+{
+    if (startIdx == s.size())
+    {
+        rlt.push_back(curPath);
+        return;
+    }
+
+    for (int i = startIdx; i < s.size(); i++)
+    {
+        auto subStr = s.substr(startIdx, i - startIdx + 1);
+        if (!isPalindrome[startIdx][i])
+        {
+            continue;
+        }
+        curPath.push_back(subStr);
+        partitionStrHelper(rlt, s, curPath, i + 1, isPalindrome);
+        curPath.pop_back();
+    }
+}
+
+vector<vector<string>> Solution::partitionStr(string s)
+{
+    vector<vector<string>> rlt;
+    int n = s.size();
+    vector<vector<bool>> isPalindrome(n, vector<bool>(n, false));
+    for (int i = 0; i < n; i++)
+    {
+        isPalindrome[i][i] = true;
+        if (i + 1 < n)
+        {
+            isPalindrome[i][i + 1] = (s[i] == s[i + 1]);
+        }
+    }
+
+    for (int row = n - 2; row >= 0; row--)
+    {
+        for (int col = row + 2; col < n; col++)
+        {
+            if (s[row] == s[col])
+            {
+                isPalindrome[row][col] = isPalindrome[row + 1][col - 1];
+            }
+        }
+    }
+    vector<string> curPath;
+    partitionStrHelper(rlt, s, curPath, 0, isPalindrome);
+    return rlt;
 }
 } // namespace leetcode
