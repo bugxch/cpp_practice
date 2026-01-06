@@ -689,4 +689,37 @@ int Solution::longestValidParentheses(string s) {
     }
     return ans;
 }
+
+int Solution::maxLevelSum(TreeNode *root) {
+    int layer = 1;
+    int depth = 0;
+    int maxSum = INT16_MIN;
+    queue<TreeNode *> myQ;
+    if (root == nullptr) {
+        return 0;
+    }
+    myQ.push(root);
+    while (!myQ.empty()) {
+        int qz = myQ.size();
+        int layerSum = 0;
+        depth++;
+        for (int i = 0; i < qz; i++) {
+            auto node = myQ.front();
+            myQ.pop();
+            layerSum += node->val;
+            if (node->left) {
+                myQ.push(node->left);
+            }
+            if (node->right) {
+                myQ.push(node->right);
+            }
+        }
+        if (layerSum > maxSum) {
+            maxSum = layerSum;
+            layer = depth;
+        }
+    }
+
+    return layer;
+}
 } // namespace leetcode

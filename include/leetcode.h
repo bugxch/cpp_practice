@@ -4,6 +4,7 @@
 
 #include <cmath>
 #include <iostream>
+#include <limits>
 #include <queue>
 #include <stack>
 #include <string>
@@ -67,6 +68,7 @@ public:
     vector<int> spiralOrder(vector<vector<int>> &matrix); // 螺旋矩阵
     vector<vector<string>> partitionStr(string s);        // 求出字符串s的所有分割子串
     int longestValidParentheses(string s);                // 最长有效括号
+    int maxLevelSum(TreeNode *root);                      // 最大层内元素和
 };
 } // namespace leetcode
 
