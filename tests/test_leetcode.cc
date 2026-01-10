@@ -34,6 +34,7 @@ TEST(leetcode, test2) {
     auto totalCnt = sol.numDistinct("rabbbit", "rabbit");
     auto minNum = sol.numSquares(12);
     auto stringSplit = sol.partitionStr("aab");
+    sol.mergeSort(nums);
     std::cout << "hello world" << std::endl;
 }
 } // namespace leetcode

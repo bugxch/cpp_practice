@@ -722,4 +722,31 @@ int Solution::maxLevelSum(TreeNode *root) {
 
     return layer;
 }
+
+int GetPilotPos(vector<int> &nums, int start, int end) {
+    // take end pos as pilot
+    int pilot = end;
+    int left = -1;
+    int right = 0;
+    while (right < end) {
+        if (nums[right] <= nums[pilot]) {
+            left++;
+            swap(nums[right], nums[left]);
+        }
+        right++;
+    }
+    // swap left
+    swap(nums[end], nums[left + 1]);
+    return left + 1;
+}
+void mergeSortHelper(vector<int> &nums, int start, int end) {
+    if (start < end) {
+        int pilot = GetPilotPos(nums, start, end);
+        mergeSortHelper(nums, start, pilot - 1);
+        mergeSortHelper(nums, pilot + 1, end);
+    }
+}
+void Solution::mergeSort(vector<int> &nums) {
+    mergeSortHelper(nums, 0, nums.size() - 1);
+}
 } // namespace leetcode

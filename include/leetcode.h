@@ -69,6 +69,7 @@ public:
     vector<vector<string>> partitionStr(string s);        // 求出字符串s的所有分割子串
     int longestValidParentheses(string s);                // 最长有效括号
     int maxLevelSum(TreeNode *root);                      // 最大层内元素和
+    void mergeSort(vector<int> &nums);                    // 快速排序
 };
 } // namespace leetcode
 
